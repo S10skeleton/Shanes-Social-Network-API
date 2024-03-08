@@ -58,10 +58,16 @@ connection.once("open", async () => {
   // Insert thoughts into the database
   const seededThoughts = await Thought.insertMany(thoughts);
 
-  // Associate thoughts with users
+  // Extract Ryan's thoughts' IDs
+  const ryansThoughtIds = seededThoughts
+    .filter(thought => thought.username === "Ryan")
+    .map(thought => thought._id);
+
+  // Associate thoughts with Ryan
   users.forEach(user => {
-    // Assuming each user should be linked to all seeded thoughts
-    user.thoughts = seededThoughts.map(thought => thought._id); 
+    if (user.username === "Ryan") {
+      user.thoughts = ryansThoughtIds;
+    }
   });
 
   // Insert users into the database
