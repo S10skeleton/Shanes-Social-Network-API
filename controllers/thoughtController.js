@@ -18,7 +18,7 @@ async getAllThoughts(req, res) {
 async getThoughtById(req, res) {
   try {
     const thoughts = await Thought.findById(req.params.thoughtId);
-    if (!user) {
+    if (!thoughts) {
       return res.status(404).json({ message: "No thought found with this ID" });
     }
     res.json(thoughts);
@@ -41,7 +41,7 @@ async createThought(req, res) {
 async updateThought(req, res) {
   try {
     const updatedThought = await Thought.findByIdAndUpdate(req.params.thoughtId, req.body, { new: true });
-    if (!updatedUser) {
+    if (!updatedThought) {
       return res.status(404).json({ message: "No thought found with this ID" });
     }
     res.json(updatedThought);

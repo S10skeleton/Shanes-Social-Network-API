@@ -4,50 +4,35 @@ const mongoose = require("mongoose");
 
 const connection = require("../config/connection");
 
-
 const users = [
   {
     username: "Ryan",
     email: "ryan@gmail.com",
     thoughts: [],
+    friends: [],
   },
-  { username: "ThatGuy",
-    email: "soqxf66@gmail.com",
-    thoughts: []
-  },
-  { username: "TacoMan",
-  email: "Tacos@gmail.com",
-  thoughts: []
-},
-{ username: "S10skeleton",
-email: "S10skeleton@gmail.com",
-thoughts: []
-},
-{ username: "GoatCoder",
-email: "thebest@gmail.com",
-thoughts: []
-},
-{ username: "TheCEO",
-email: "Iownthisplace@gmail.com",
-thoughts: []
-},
-]
-// Existing imports
+  { username: "ThatGuy", email: "soqxf66@gmail.com", thoughts: [], friends: []},
+  { username: "TacoMan", email: "Tacos@gmail.com", thoughts: [], friends: [] },
+  { username: "S10skeleton", email: "S10skeleton@gmail.com", thoughts: [], friends: [] },
+  { username: "GoatCoder", email: "thebest@gmail.com", thoughts: [], friends: [] },
+  { username: "TheCEO", email: "Iownthisplace@gmail.com", thoughts: [], friends: [] },
+];
 
-// Seed data
-// ... (existing users array)
-
-// Updated thoughts array
 const thoughts = [
   {
     thoughtText: "Here's a cool thought...",
-    username: "Ryan", // should match a user's username
-    reactions: [] // Add reactions if needed
+    username: "Ryan",
+    reactions: [], 
   },
-  // Add more thoughts as needed
+  {
+    thoughtText: "Wow so Amazing",
+    username: "TacoMan",
+    reactions: [], 
+  },
+ 
 ];
 
-// Connects to server
+// Connect to server
 connection.once("open", async () => {
   console.log("connected");
 
@@ -58,13 +43,13 @@ connection.once("open", async () => {
   // Insert thoughts into the database
   const seededThoughts = await Thought.insertMany(thoughts);
 
-  // Extract Ryan's thoughts' IDs
+  // Extract thoughts' IDs
   const ryansThoughtIds = seededThoughts
-    .filter(thought => thought.username === "Ryan")
-    .map(thought => thought._id);
+    .filter((thought) => thought.username === "Ryan")
+    .map((thought) => thought._id);
 
   // Associate thoughts with Ryan
-  users.forEach(user => {
+  users.forEach((user) => {
     if (user.username === "Ryan") {
       user.thoughts = ryansThoughtIds;
     }
