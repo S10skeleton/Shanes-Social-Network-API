@@ -44,4 +44,5 @@ It enables users to share thoughts, react to friends' thoughts, and manage a fri
 
 ### Github Repo and Walkthru Video Links
 
+https://drive.google.com/file/d/191hApQZSsvyo_QpIPuJNbuNIMN1_fQ5Q/view
 https://github.com/S10skeleton/Shanes-Social-Network-API

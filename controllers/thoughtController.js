@@ -32,25 +32,26 @@ const thoughtController = {
     }
   },
 
-// Create a new thought
-async createThought(req, res) {
-  try {
-    // Create the thought
-    const newThought = await Thought.create(req.body);
+  // Create a new thought
+  async createThought(req, res) {
+    try {
+      // Create the thought
+      const newThought = await Thought.create(req.body);
 
-    // Find user by username and add thought ID to their thoughts array
-    await User.findOneAndUpdate(
-      { username: req.body.username },
-      { $push: { thoughts: newThought._id } },
-      { new: true }
-    );
+      // Find user by username and add thought ID to their thoughts array
+      await User.findOneAndUpdate(
+        { username: req.body.username },
+        { $push: { thoughts: newThought._id } },
+        { new: true }
+      );
 
-    res.json(newThought);
-  } catch (err) {
-    res.status(500).json({ message: "Error creating thought", error: err.message });
-  }
-},
-
+      res.json(newThought);
+    } catch (err) {
+      res
+        .status(500)
+        .json({ message: "Error creating thought", error: err.message });
+    }
+  },
 
   // Update a thought by ID
   async updateThought(req, res) {

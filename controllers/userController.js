@@ -2,7 +2,6 @@
 const User = require("../models/user");
 const Thought = require("../models/thought");
 
-
 const userController = {
   // Get all users
   async getAllUsers(req, res) {
@@ -63,25 +62,28 @@ const userController = {
     }
   },
 
-// Delete a user by ID and their associated thoughts
-async deleteUser(req, res) {
-  try {
-    const userId = req.params.userId;
-    const deletedUser = await User.findByIdAndDelete(userId);
+  // Delete a user by ID and their associated thoughts
+  async deleteUser(req, res) {
+    try {
+      const userId = req.params.userId;
+      const deletedUser = await User.findByIdAndDelete(userId);
 
-    if (!deletedUser) {
-      return res.status(404).json({ message: "No user found with this ID" });
+      if (!deletedUser) {
+        return res.status(404).json({ message: "No user found with this ID" });
+      }
+
+      // Delete associated thoughts
+      await Thought.deleteMany({ username: deletedUser.username });
+
+      res.json({
+        message: "User and associated thoughts successfully deleted",
+      });
+    } catch (err) {
+      res
+        .status(500)
+        .json({ message: "Error deleting user", error: err.message });
     }
-
-    // Delete associated thoughts
-    await Thought.deleteMany({ username: deletedUser.username });
-
-    res.json({ message: "User and associated thoughts successfully deleted" });
-  } catch (err) {
-    res.status(500).json({ message: "Error deleting user", error: err.message });
-  }
-},
-
+  },
 
   // Add friend to user
   async addFriend(req, res) {
