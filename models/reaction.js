@@ -1,6 +1,6 @@
-// imports 
-const { Schema, Types } = require('mongoose');
-// Schema for reactions 
+// imports
+const { Schema, Types } = require("mongoose");
+// Schema for reactions
 const reactionSchema = new Schema(
   {
     reactionId: {
@@ -29,5 +29,5 @@ const reactionSchema = new Schema(
     id: false,
   }
 );
-// export 
+// export
 module.exports = reactionSchema;

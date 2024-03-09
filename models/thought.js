@@ -1,7 +1,7 @@
-// import 
-const { Schema, model } = require('mongoose');
-const reactionSchema = require('./reaction'); 
-// Schema for thoughts 
+// import
+const { Schema, model } = require("mongoose");
+const reactionSchema = require("./reaction");
+// Schema for thoughts
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -31,10 +31,10 @@ const thoughtSchema = new Schema(
 );
 
 // Create a virtual property `reactionCount` that gets the number of reactions
-thoughtSchema.virtual('reactionCount').get(function () {
+thoughtSchema.virtual("reactionCount").get(function () {
   return this.reactions.length;
 });
 
-const Thought = model('thought', thoughtSchema);
-// export 
+const Thought = model("thought", thoughtSchema);
+// export
 module.exports = Thought;
